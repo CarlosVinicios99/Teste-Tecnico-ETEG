@@ -1,5 +1,7 @@
 package carlosvinicios.colors.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,11 @@ public class ColorsController {
 	@PostMapping()
 	public ResponseEntity<Color> createColor(@RequestBody() CreateColorDTO createColorDto){
 		return this.colorsService.createColor(createColorDto);
+	}
+	
+	@GetMapping()
+	public ResponseEntity<List<Color>> listColors(){
+		return this.colorsService.listColors();
 	}
 	
 	
