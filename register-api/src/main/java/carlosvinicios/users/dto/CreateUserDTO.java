@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CreateUserDTO(
 	
-	@NotBlank(message = "name is required")
+	@NotBlank(message = "campo name é obrigatório")
 	String name,
 	
-	@Email(message = "email must be a valid email address")
+	@Email(message = "campo email é obrigatório")
 	String email,
 	
-	@NotBlank(message = "cpf is required")
+	@NotBlank(message = "campo cpf é obrigatório")
 	String cpf,
 	
 	@NotBlank(message = "color id is required")
