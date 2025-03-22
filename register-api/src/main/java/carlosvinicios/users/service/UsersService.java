@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import carlosvinicios.colors.model.Color;
 import carlosvinicios.colors.repository.ColorsRepository;
 import carlosvinicios.users.dto.CreateUserDTO;
+import carlosvinicios.users.exceptions.CpfConflictException;
+import carlosvinicios.users.exceptions.EmailConflictException;
+import carlosvinicios.users.exceptions.InvalidColorException;
 import carlosvinicios.users.model.User;
 import carlosvinicios.users.repository.UsersRepository;
 
@@ -34,21 +37,24 @@ public class UsersService {
 		User userWithEmail = this.usersRepository.findByEmail(createUserDto.email());
 		
 		if(userWithEmail != null) {
-			//lançar exceção de email já existente
+			this.logger.log(Level.SEVERE, "email already exists!");
+			throw new EmailConflictException();
 		}
 		
 		this.logger.log(Level.WARNING, "checking if cpf already exists in database");
 		User userWithCpf = this.usersRepository.findByCpf(createUserDto.cpf());
 		
 		if(userWithCpf != null) {
-			//lancar exceção de cpf já existente
+			this.logger.log(Level.SEVERE, "cpf already exists!");
+			throw new CpfConflictException();
 		}
 		
 		this.logger.log(Level.WARNING, "checking if the color is valid in database");
 		Optional<Color> color = this.colorsRepository.findById(createUserDto.favoriteColorId());
 		
 		if(!color.isPresent()) {
-			//lançar exceção de cor inválida
+			this.logger.log(Level.SEVERE, "color is invalid!");
+			throw new InvalidColorException();
 		}
 		
 		User newUser = new User();
@@ -63,5 +69,4 @@ public class UsersService {
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(newUser);
 	}
-	
 }
