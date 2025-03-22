@@ -32,5 +32,4 @@ public class ColorsController {
 		return this.colorsService.listColors();
 	}
 	
-	
 }

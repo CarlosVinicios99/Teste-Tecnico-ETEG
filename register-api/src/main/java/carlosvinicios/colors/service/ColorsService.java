@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import carlosvinicios.colors.dto.CreateColorDTO;
+import carlosvinicios.colors.exceptions.InvalidHexCodeException;
 import carlosvinicios.colors.model.Color;
 import carlosvinicios.colors.repository.ColorsRepository;
 import carlosvinicios.colors.utils.HexCodeValidator;
@@ -31,7 +32,7 @@ public class ColorsService {
 		
 		if(!HexCodeValidator.isValidHex(createColorDto.hexCode())){
 			this.logger.log(Level.SEVERE, "hexCode is invalid");
-			//lançar exceção de código hexadecimal inválido
+			throw new InvalidHexCodeException();
 		}
 		
 		Color newColor = new Color();
