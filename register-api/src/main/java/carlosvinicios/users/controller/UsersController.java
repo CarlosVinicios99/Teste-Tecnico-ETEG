@@ -1,4 +1,4 @@
-package carlosvinicios.colors.controller;
+package carlosvinicios.users.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class UsersController {
 	private UsersService usersService;
 	
 	
-	@PostMapping
+	@PostMapping()
 	public ResponseEntity<User> createUser(CreateUserDTO createUserDTO){
 		return this.usersService.createUser(createUserDTO);
 	}
