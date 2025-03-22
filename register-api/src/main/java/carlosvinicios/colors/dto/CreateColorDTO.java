@@ -3,10 +3,10 @@ package carlosvinicios.colors.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public record CreateColorDTO(
-	@NotBlank(message = "name is required")
+	@NotBlank(message = "campo nome é obrigatório")
 	String name,
 	
-	@NotBlank(message = "hexCode is required")
+	@NotBlank(message = "campo hexCode é obrigatório")
 	String hexCode
 
 ) {
