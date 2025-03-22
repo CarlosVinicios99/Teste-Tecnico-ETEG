@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import carlosvinicios.colors.model.Color;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,18 +32,23 @@ public class User implements Serializable {
 	@Column
 	private String cpf;
 	
+	@ManyToOne
+	@JoinColumn(name = "color_id")
+	private Color favoriteColor;
+	
 	
 	public User() {
 		
 	}
 
 	
-	public User(UUID id, String name, String email, String cpf) {
+	public User(UUID id, String name, String email, String cpf, Color favoriteColor) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cpf = cpf;
+		this.favoriteColor = favoriteColor;
 	}
 
 
@@ -75,11 +83,19 @@ public class User implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
 	
+	public Color getFavoriteColor() {
+		return favoriteColor;
+	}
+
+	public void setFavoriteColor(Color favoriteColor) {
+		this.favoriteColor = favoriteColor;
+	}
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, email, id, name);
+		return Objects.hash(cpf, email, favoriteColor, id, name);
 	}
 
 	@Override
@@ -91,7 +107,8 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email) && Objects.equals(id, other.id)
+		return Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email)
+			&& Objects.equals(favoriteColor, other.favoriteColor) && Objects.equals(id, other.id)
 			&& Objects.equals(name, other.name);
 	}	
 }
