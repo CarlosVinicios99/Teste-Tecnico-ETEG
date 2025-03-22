@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import carlosvinicios.colors.model.Color;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,8 +33,8 @@ public class User implements Serializable {
 	@Column
 	private String cpf;
 	
-	@ManyToOne
-	@JoinColumn(name = "color_id")
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "color_id", nullable = false)
 	private Color favoriteColor;
 	
 	
