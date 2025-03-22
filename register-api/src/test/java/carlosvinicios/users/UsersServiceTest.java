@@ -18,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import carlosvinicios.colors.model.Color;
 import carlosvinicios.colors.repository.ColorsRepository;
 import carlosvinicios.users.dto.CreateUserDTO;
+import carlosvinicios.users.exceptions.CpfConflictException;
 import carlosvinicios.users.exceptions.EmailConflictException;
+import carlosvinicios.users.exceptions.InvalidColorException;
 import carlosvinicios.users.model.User;
 import carlosvinicios.users.repository.UsersRepository;
 import carlosvinicios.users.service.UsersService;
@@ -98,12 +100,37 @@ public class UsersServiceTest {
 	*/
 	
 	public void testCreateUserCaseFailByCpfConflictException() {
+		UUID colorId = UUID.randomUUID();
 		
+	    CreateUserDTO createUserDto = new CreateUserDTO(
+	    	"Carlos Vinícios De Souza", 
+	    	"carlosvinicios@email.com", 
+	    	"41956791094", 
+	    	colorId
+	    );
+	    
+	    when(usersRepository.findByEmail(createUserDto.email())).thenReturn(null);
+	    when(usersRepository.findByCpf(createUserDto.cpf())).thenReturn(new User());
+	    
+	    assertThrows(CpfConflictException.class, () -> usersService.createUser(createUserDto));
 	}
 	
+	/*
 	public void testCreateUserCaseFailByInvalidColorException() {
-		
+	    UUID colorId = UUID.randomUUID();
+	    
+	    CreateUserDTO createUserDto = new CreateUserDTO(
+	        "Carlos Vinícios De Souza", 
+	        "carlosvinicios@email.com", 
+	        "41956791094", 
+	        colorId
+	    );
+	    
+	    when(usersRepository.findByEmail(createUserDto.email())).thenReturn(null);
+	    when(usersRepository.findByCpf(createUserDto.cpf())).thenReturn(null);
+	    when(colorsRepository.findById(colorId)).thenReturn(Optional.empty());
+	    
+	    assertThrows(InvalidColorException.class, () -> usersService.createUser(createUserDto));
 	}
-	
-	
+	*/
 }
