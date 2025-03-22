@@ -1,5 +1,6 @@
 package carlosvinicios.colors.service;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,9 +38,19 @@ public class ColorsService {
 		newColor.setName(createColorDto.name());
 		newColor.setHexCode(createColorDto.hexCode());
 		
+		this.logger.log(Level.WARNING, "create color in database");
 		newColor = this.colorsRepository.save(newColor);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(newColor);
+	}
+	
+	public ResponseEntity<List<Color>> listColors(){
+		this.logger.log(Level.INFO, "staring list of registered colors");
+		
+		List<Color> colors = this.colorsRepository.findAll();
+		
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(colors);
 	}
 }
