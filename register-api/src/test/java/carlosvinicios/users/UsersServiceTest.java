@@ -1,6 +1,7 @@
 package carlosvinicios.users;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import carlosvinicios.colors.model.Color;
 import carlosvinicios.colors.repository.ColorsRepository;
 import carlosvinicios.users.dto.CreateUserDTO;
+import carlosvinicios.users.exceptions.EmailConflictException;
 import carlosvinicios.users.model.User;
 import carlosvinicios.users.repository.UsersRepository;
 import carlosvinicios.users.service.UsersService;
@@ -75,7 +77,33 @@ public class UsersServiceTest {
 	    assertThat(response.getBody().getFavoriteColor()).usingRecursiveComparison().isEqualTo(favoriteColor.get());   
 	}
 	
-	public void testCreate
+	public void testCreateUserCaseFailByEmailConflictException() {
+		UUID colorId = UUID.randomUUID();
+		
+	    CreateUserDTO createUserDto = new CreateUserDTO(
+	    	"Carlos Vinícios De Souza", 
+	    	"carlosvinicios@email.com", 
+	    	"41956791094", 
+	    	colorId
+	    );
+	    
+	    when(usersRepository.findByEmail(createUserDto.email())).thenReturn(new User());
+	    assertThrows(EmailConflictException.class, () -> usersService.createUser(createUserDto));
+	}
+	
+	/*
+	public void testCreateUserCaseFailByInvalidCpfException() {
+		
+	}
+	*/
+	
+	public void testCreateUserCaseFailByCpfConflictException() {
+		
+	}
+	
+	public void testCreateUserCaseFailByInvalidColorException() {
+		
+	}
 	
 	
 }
