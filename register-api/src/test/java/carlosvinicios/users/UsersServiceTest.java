@@ -115,7 +115,6 @@ public class UsersServiceTest {
 	    assertThrows(CpfConflictException.class, () -> usersService.createUser(createUserDto));
 	}
 	
-	/*
 	public void testCreateUserCaseFailByInvalidColorException() {
 	    UUID colorId = UUID.randomUUID();
 	    
@@ -132,5 +131,4 @@ public class UsersServiceTest {
 	    
 	    assertThrows(InvalidColorException.class, () -> usersService.createUser(createUserDto));
 	}
-	*/
 }
