@@ -8,11 +8,11 @@
 		<version>3.3.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>carpelune</groupId>
-	<artifactId>api-gerenciador-de-tarefas</artifactId>
+	<groupId>carlosvinicios</groupId>
+	<artifactId>register-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api-gerenciador-de-tarefas</name>
-	<description>API para um gerenciador de tarefas</description>
+	<name>register-api</name>
+	<description>API para o cadastro de usuarios</description>
 	<url/>
 	<licenses>
 		<license/>
