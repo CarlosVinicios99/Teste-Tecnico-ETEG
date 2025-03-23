@@ -1,8 +1,10 @@
+import "./LogoSection.css"
+
 const LogoSection = () => {
   return (
     <div className="logo-section-container">
-        <img src="../assets/eteg-logo.png" alt="Logo Eteg" />
-        <span>Simplificando Processos e Poupando Seu Tempo</span>
+        <img className="logo-image" src="../../public/eteg-logo.png" alt="Logo Eteg" />
+        <span className="slogan-text">Simplificando Processos e Poupando Seu Tempo</span>
     </div>
   )
 }
