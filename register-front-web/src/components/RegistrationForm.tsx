@@ -1,6 +1,25 @@
+import { useEffect, useState } from "react";
+import { Color } from "../interfaces/Color";
 import "./RegistrationForm.css"
+import { ColorService } from "../services/color.service";
 
 const RegistrationForm = () => {
+
+    const [colors, setColors] = useState<Color[]>([]);
+
+    useEffect(() => {
+        const fetchColors = async () => {
+            const colorService = ColorService.getInstance();
+            const result = await colorService.getAllColors();
+
+            if (Array.isArray(result)) {
+                setColors(result);
+            } else {
+                console.error("Erro ao carregar as cores:", result);
+            }
+        };
+        fetchColors();
+    }, []);
 
     return (
         <div className="registration-form-container">
@@ -13,9 +32,11 @@ const RegistrationForm = () => {
 
                 <select className="select-color">
                 <option value="">Cor Preferida</option>
-                    <option value="Azul">Azul</option>
-                    <option value="Amarelo">Amarelo</option>
-                    <option value="Verde">Verde</option>
+                    {colors.map((color) => (
+                        <option key={color.id} value={color.name}>
+                            {color.name}
+                        </option>
+                    ))}
                 </select>
             </form>
 
