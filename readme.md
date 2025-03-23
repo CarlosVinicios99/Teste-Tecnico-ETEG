@@ -19,3 +19,10 @@
 
 ## Dockerização Da Aplicação
 <img src = "https://github.com/CarlosVinicios99/Teste-Tecnico-ETEG/blob/main/uso-do-docker.jpg?raw=true">
+<p>Foi Realizada a configuração do Dockerfile de cada aplicaão e a comfiguração do docker-compose para todo o projeto</p>
+<p>Para executar a aplicação basta ter o docker instalado e executar os comandos: </p>
+<ol>
+  <li>docker-compose build</li>
+  <li>docker-compose up -d</li>
+</ol>
+<p>Para remover a estrutura basta digitar o comando `docker-compose down -v`.</p>
