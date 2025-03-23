@@ -16,13 +16,15 @@ export class ColorService {
 
     async getAllColors(){
         try{
-            const url: string = `${import.meta.env.REGISTER_API_URL}colors`
+            const url: string = `${import.meta.env.VITE_REGISTER_API_URL}colors`
             const response: Response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 },
             })
+
+            console.log(JSON.stringify(response, null, 2))
 
             if(response.status !== 200){
                 const responseError: ApiError = await response.json()
