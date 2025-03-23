@@ -11,13 +11,12 @@ const RegistrationForm = () => {
                 <input type="text" placeholder="E-mail"/>
                 <input type="text" placeholder="CPF (somente números)"/>
 
-                <select className="select-option">
+                <select className="select-color">
                 <option value="">Cor Preferida</option>
                     <option value="Azul">Azul</option>
                     <option value="Amarelo">Amarelo</option>
                     <option value="Verde">Verde</option>
                 </select>
-                
             </form>
 
             <button className="registration-button">Cadastrar</button>
