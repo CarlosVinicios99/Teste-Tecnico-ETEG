@@ -34,6 +34,6 @@ public class UserExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse> handleException(Exception e){
 		return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-			.body(new ErrorResponse("Serviço Indisponível", HttpStatus.SERVICE_UNAVAILABLE.value()));
+			.body(new ErrorResponse("Serviço indisponível", HttpStatus.SERVICE_UNAVAILABLE.value()));
 	}
 }

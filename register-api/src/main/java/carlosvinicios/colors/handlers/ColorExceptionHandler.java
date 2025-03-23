@@ -22,4 +22,5 @@ public class ColorExceptionHandler {
 		return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
 			.body(new ErrorResponse("Serviço Indisponível", HttpStatus.SERVICE_UNAVAILABLE.value()));
 	}
+	
 }
