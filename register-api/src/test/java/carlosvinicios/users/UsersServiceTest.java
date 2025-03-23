@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -41,7 +42,7 @@ public class UsersServiceTest {
 	   MockitoAnnotations.openMocks(this); 
 	}
 	
-	
+	@Test
 	public void testCreateUserCaseSucess() {
         
 		UUID colorId = UUID.randomUUID();
@@ -79,6 +80,7 @@ public class UsersServiceTest {
 	    assertThat(response.getBody().getFavoriteColor()).usingRecursiveComparison().isEqualTo(favoriteColor.get());   
 	}
 	
+	@Test
 	public void testCreateUserCaseFailByEmailConflictException() {
 		UUID colorId = UUID.randomUUID();
 		
@@ -99,6 +101,7 @@ public class UsersServiceTest {
 	}
 	*/
 	
+	@Test
 	public void testCreateUserCaseFailByCpfConflictException() {
 		UUID colorId = UUID.randomUUID();
 		
@@ -115,6 +118,7 @@ public class UsersServiceTest {
 	    assertThrows(CpfConflictException.class, () -> usersService.createUser(createUserDto));
 	}
 	
+	@Test
 	public void testCreateUserCaseFailByInvalidColorException() {
 	    UUID colorId = UUID.randomUUID();
 	    

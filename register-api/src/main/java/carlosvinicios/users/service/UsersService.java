@@ -1,5 +1,6 @@
 package carlosvinicios.users.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,5 +69,14 @@ public class UsersService {
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(newUser);
+	}
+	
+	public ResponseEntity<List<User>> listUsers(){
+		this.logger.log(Level.INFO, "staring list of registered users");
+		
+		List<User> users = this.usersRepository.findAll();
+		
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(users);
 	}
 }
