@@ -7,7 +7,7 @@ import { UserService } from "../services/user.service";
 
 const RegistrationForm = () => {
 
-    const [colors, setColors] = useState<Color[]>([]);
+    const [colors, setColors] = useState<Color[]>([])
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [cpf, setCpf] = useState<string>("")
@@ -15,13 +15,13 @@ const RegistrationForm = () => {
 
     useEffect(() => {
         const fetchColors = async () => {
-            const colorService = ColorService.getInstance();
-            const result = await colorService.getAllColors();
+            const colorService = ColorService.getInstance()
+            const result = await colorService.getAllColors()
 
             if (Array.isArray(result)) {
-                setColors(result);
+                setColors(result)
             } else {
-                console.error("Erro ao carregar as cores:", result);
+                console.error("Erro ao carregar as cores:", result)
             }
         };
         fetchColors();
@@ -32,24 +32,27 @@ const RegistrationForm = () => {
         event.preventDefault();
 
         if (!name || !email || !cpf || !selectedColor) {
-            alert("Por favor, preencha todos os campos.");
-            return;
+            alert("Por favor, preencha todos os campos.")
+            return
         }
 
-        const userService = UserService.getInstance();
+        const userService = UserService.getInstance()
         const newUser: CreateUserDTO = {
             name,
             email,
             cpf,
-            colorId: selectedColor
-        };
+            favoriteColorId: selectedColor
+        }
 
-        const response = await userService.createUser(newUser);
+        console.log
+
+        const response = await userService.createUser(newUser)
 
         if ("id" in response) {
-            alert("Usuário cadastrado com sucesso!");
-        } else {
-            alert("Erro ao cadastrar usuário.");
+            alert("Usuário cadastrado com sucesso!")
+        } 
+        else {
+            alert(`erro ao cadastrar usuário. ${response?.message}`)
         }
 
         setName("")
@@ -88,7 +91,7 @@ const RegistrationForm = () => {
                 >
                     <option value="">Cor Preferida</option>
                         {colors.map((color) => (
-                            <option key={color.id} value={color.name}>
+                            <option key={color.id} value={color.id}>
                                 {color.name}
                             </option>
                         ))}

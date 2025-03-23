@@ -24,8 +24,6 @@ export class ColorService {
                 },
             })
 
-            console.log(JSON.stringify(response, null, 2))
-
             if(response.status !== 200){
                 const responseError: ApiError = await response.json()
                 return responseError
