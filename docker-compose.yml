@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: eteg_registrations
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/db-data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  register-api:
+    build:
+      context: ./register-api
+    container_name: register-api
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eteg_registrations
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin123
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  front-end:
+    build:
+      context: ./front-end
+    container_name: front-end
+    depends_on:
+      - register-api
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_REGISTER_API_URL: http://register-api:8080
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data: {}
