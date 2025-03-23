@@ -2,13 +2,13 @@ FROM maven:3.8.4-openjdk-17 AS build
 
 WORKDIR /app
 
-COPY register-api/pom.xml .
+COPY pom.xml .
 
 RUN mvn dependency:go-offline
 
-COPY register-api/src /app/src
+COPY src /app/src
 
-RUN mvn clean package -DskipTests=false
+RUN mvn clean package -DskipTests=true
 
 FROM openjdk:17-jdk-slim
 

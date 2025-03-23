@@ -2,11 +2,11 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-COPY register-front-web/package*.json ./
+COPY package*.json ./ 
 
 RUN npm install
 
-COPY register-front-web/ ./
+COPY . ./
 
 RUN npm run build
 

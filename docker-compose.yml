@@ -11,17 +11,23 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./docker/db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
       - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
 
   register-api:
     build:
       context: ./register-api
     container_name: register-api
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eteg_registrations
       SPRING_DATASOURCE_USERNAME: postgres
@@ -30,10 +36,11 @@ services:
       - "8080:8080"
     networks:
       - app-network
+    restart: unless-stopped
 
   front-end:
     build:
-      context: ./front-end
+      context: ./register-front-web
     container_name: front-end
     depends_on:
       - register-api
@@ -43,6 +50,7 @@ services:
       VITE_REGISTER_API_URL: http://register-api:8080
     networks:
       - app-network
+    restart: unless-stopped
 
 networks:
   app-network:
