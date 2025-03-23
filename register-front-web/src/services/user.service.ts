@@ -1,5 +1,5 @@
-import { User } from "../../interfaces/User";
-import { ApiError } from "../errors/ApiErro";
+import { User } from "../interfaces/User";
+import { ApiError } from "./errors/ApiError";
 import { CreateUserDTO } from "./dto/CreateUserDTO";
 
 export class UserService {
@@ -17,7 +17,7 @@ export class UserService {
 
     async createUser(data: CreateUserDTO): Promise<User | ApiError>{
         try{
-            const url: string = `${import.meta.env.REGISTER_API_URL}user`
+            const url: string = `${import.meta.env.REGISTER_API_URL}users`
             const response: Response = await fetch(url, {
                 method: "POST",
                 headers: {
